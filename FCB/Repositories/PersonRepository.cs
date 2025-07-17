@@ -37,7 +37,7 @@ namespace FCB.Repositories
         }
         public async Task<People?> GetByIdAsync(int id)
         {
-            return await _context.People.FindAsync(id) ?? throw new KeyNotFoundException($"Person with ID {id} not found.");
+            return await _context.People.FindAsync(id);
         }
         public async Task AddAsync(People entity)
         {

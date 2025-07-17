@@ -4,67 +4,92 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Stock" class="control-label"></label>
-                <input asp-for="Stock" class="form-control" />
-                <span asp-validation-for="Stock" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormFile" class="control-label">Upload picture from your pc</label>
-                <input asp-for="FormFile" type="file" class="form-control" />
-                <span asp-validation-for="FormFile" class="text-danger"></span>
-            </div>
 
-@*             <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div> *@
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-pencil-alt text-primary"></i> @ViewData["Title"]
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Product Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Price" class="form-label">Price</label>
+                                <input asp-for="Price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Stock" class="form-label">Stock</label>
+                                <input asp-for="Stock" class="form-control" />
+                                <span asp-validation-for="Stock" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="CreatedAt" class="control-label">Created At</label>
+                                <input asp-for="CreatedAt" class="form-control" />
+                                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="OwnerId" class="control-label">Owner Phone</label>
+                                <select asp-for="OwnerId" class="form-control" asp-items="ViewBag.OwnerId"></select>
+                                <span asp-validation-for="OwnerId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FormFile" class="control-label">Upload picture from your pc</label>
+                            <input asp-for="FormFile" type="file" class="form-control" />
+                            <span asp-validation-for="FormFile" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label class="control-label">Current image</label>
+                            <div>
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img src="@Model.ImageUrl" alt="Product Image" style="max-width: 200px; max-height: 200px; width: auto; height: auto;" />
+                                }
+                                else
+                                {
+                                    <span>No image available</span>
+                                }
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex justify-content-end">
+                            <a asp-action="Index" class="btn btn-secondary me-2"><i class="fas fa-list"></i> Back to List</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="OwnerId" class="control-label"></label>
-                <select asp-for="OwnerId" class="form-control" asp-items="ViewBag.OwnerId"></select>
-                <span asp-validation-for="OwnerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

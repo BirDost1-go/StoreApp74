@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using FCB.Models;
 
 namespace FCB.Models
 {
@@ -17,9 +16,9 @@ namespace FCB.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int OwnerId { get; set; }
         [ForeignKey("OwnerId")]
-        public People Owner { get; set; }=null!;
+        [ValidateNever]
+        public People? Owner { get; set; }
         [NotMapped]
         public IFormFile? FormFile { get; set; }
-
     }
 }

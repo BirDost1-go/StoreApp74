@@ -50,7 +50,7 @@ namespace FCB.Repositories
         public async Task DeleteAsync(int id)
         {
             var entity = await GetByIdAsync(id)
-                ?? throw new KeyNotFoundException($"Person with ID {id} not found.");
+                ?? throw new KeyNotFoundException($"Entity with ID {id} not found.");
             _dbSet.Remove(entity);
             await _context.SaveChangesAsync();
         }

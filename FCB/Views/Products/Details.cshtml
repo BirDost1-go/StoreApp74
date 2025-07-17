@@ -1,67 +1,57 @@
 ﻿@model FCB.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Product Details";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h4 class="mb-0">
+                        <i class="fas fa-box-open text-primary"></i> @ViewData["Title"]
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <div class="text-center mb-4">
+                            <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-height: 300px;" />
+                        </div>
+                    }
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model?.Owner != null)
-            {
-                @Model.Owner.PhoneNumber
-            }
-            else
-            {
-                <span>N/A</span>
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                    <dl class="row">
+                        <dt class="col-sm-3 text-muted">Product Name</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-3 text-muted">Description</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-3 text-muted">Price</dt>
+                        <dd class="col-sm-9">@Model.Price.ToString("C", new System.Globalization.CultureInfo("tr-TR"))</dd>
+
+                        <dt class="col-sm-3 text-muted">Stock</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.Stock)</dd>
+
+                        <dt class="col-sm-3 text-muted">Created At</dt>
+                        <dd class="col-sm-9">@Html.DisplayFor(model => model.CreatedAt)</dd>
+
+                        <dt class="col-sm-3 text-muted">Owner</dt>
+                        <dd class="col-sm-9">
+                            @(Model.Owner?.PhoneNumber ?? "N/A")
+                        </dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-light text-end">
+                    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-list"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
